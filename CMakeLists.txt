@@ -111,11 +111,11 @@ macro(use_compilation_warning_as_error)
     if(MSVC)
         # Only enabled in debug because some old versions of VS STL generate
         # warnings when compiled in release configuration.
-        add_compile_options($<$<CONFIG:Debug>:/WX>)
+        #add_compile_options($<$<CONFIG:Debug>:/WX>)
     elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-        add_compile_options(-Werror)
+        #add_compile_options(-Werror)
         if(JSONCPP_WITH_STRICT_ISO)
-            add_compile_options(-pedantic-errors)
+            #add_compile_options(-pedantic-errors)
         endif()
     endif()
 endmacro()
@@ -134,35 +134,35 @@ endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     # using regular Clang or AppleClang
-    add_compile_options(-Wall -Wconversion -Wshadow)
+    #add_compile_options(-Wall -Wconversion -Wshadow)
 
     if(JSONCPP_WITH_WARNING_AS_ERROR)
-        add_compile_options(-Werror=conversion -Werror=sign-compare)
+        #add_compile_options(-Werror=conversion -Werror=sign-compare)
     endif()
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     # using GCC
-    add_compile_options(-Wall -Wconversion -Wshadow -Wextra)
+    #add_compile_options(-Wall -Wconversion -Wshadow -Wextra)
     # not yet ready for -Wsign-conversion
 
     if(JSONCPP_WITH_STRICT_ISO)
-        add_compile_options(-Wpedantic)
+        #add_compile_options(-Wpedantic)
     endif()
     if(JSONCPP_WITH_WARNING_AS_ERROR)
-        add_compile_options(-Werror=conversion)
+        #add_compile_options(-Werror=conversion)
     endif()
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
     # using Intel compiler
-    add_compile_options(-Wall -Wconversion -Wshadow -Wextra)
+    #add_compile_options(-Wall -Wconversion -Wshadow -Wextra)
 
     if(JSONCPP_WITH_WARNING_AS_ERROR)
-        add_compile_options(-Werror=conversion)
+        #add_compile_options(-Werror=conversion)
     elseif(JSONCPP_WITH_STRICT_ISO)
-        add_compile_options(-Wpedantic)
+        #add_compile_options(-Wpedantic)
     endif()
 endif()
 
 if(JSONCPP_WITH_WARNING_AS_ERROR)
-    use_compilation_warning_as_error()
+    #use_compilation_warning_as_error()
 endif()
 
 if(JSONCPP_WITH_PKGCONFIG_SUPPORT)
