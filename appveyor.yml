@@ -19,7 +19,7 @@ build_script:
   - set JSONCPP_BUILD_FOLDER=%JSONCPP_FOLDER%\build\release
   - mkdir -p %JSONCPP_BUILD_FOLDER%
   - cd %JSONCPP_BUILD_FOLDER%
-  - cmake -G "%CMAKE_GENERATOR%" -DCMAKE_INSTALL_PREFIX:PATH=%CD:\=/%/install -DBUILD_SHARED_LIBS:BOOL=ON %JSONCPP_FOLDER%
+  - cmake -G "%CMAKE_GENERATOR%" -DCMAKE_INSTALL_PREFIX:PATH=%CD:\=/%/install -DJSONCPP_BUILD_SHARED_LIBS:BOOL=ON %JSONCPP_FOLDER%
   # Use ctest to make a dashboard build:
   # - ctest -D Experimental(Start|Update|Configure|Build|Test|Coverage|MemCheck|Submit)
   # NOTE: Testing on windows is not yet finished:

@@ -108,7 +108,7 @@ list(APPEND REQUIRED_FEATURES
 )
 
 
-if(BUILD_SHARED_LIBS)
+if(JSONCPP_BUILD_SHARED_LIBS)
     if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.12.0)
         add_compile_definitions(JSON_DLL_BUILD)
     else()
@@ -121,7 +121,7 @@ if(BUILD_SHARED_LIBS)
         OUTPUT_NAME jsoncpp
         VERSION ${PROJECT_VERSION}
         SOVERSION ${PROJECT_SOVERSION}
-        POSITION_INDEPENDENT_CODE ${BUILD_SHARED_LIBS}
+        POSITION_INDEPENDENT_CODE ${JSONCPP_BUILD_SHARED_LIBS}
     )
 
     # Set library's runtime search path on OSX
@@ -140,12 +140,12 @@ if(BUILD_SHARED_LIBS)
     list(APPEND CMAKE_TARGETS ${SHARED_LIB})
 endif()
 
-if(BUILD_STATIC_LIBS)
+if(JSONCPP_BUILD_STATIC_LIBS)
     set(STATIC_LIB ${PROJECT_NAME}_static)
     add_library(${STATIC_LIB} STATIC ${PUBLIC_HEADERS} ${JSONCPP_SOURCES})
 
     # avoid name clashes on windows as the shared import lib is alse named jsoncpp.lib
-    if(NOT DEFINED STATIC_SUFFIX AND BUILD_SHARED_LIBS)
+    if(NOT DEFINED STATIC_SUFFIX AND JSONCPP_BUILD_SHARED_LIBS)
         if (MSVC)
             set(STATIC_SUFFIX "_static")
         else()
@@ -174,7 +174,7 @@ if(BUILD_STATIC_LIBS)
     list(APPEND CMAKE_TARGETS ${STATIC_LIB})
 endif()
 
-if(BUILD_OBJECT_LIBS)
+if(JSONCPP_BUILD_OBJECT_LIBS)
     set(OBJECT_LIB ${PROJECT_NAME}_object)
     add_library(${OBJECT_LIB} OBJECT ${PUBLIC_HEADERS} ${JSONCPP_SOURCES})
 
@@ -182,7 +182,7 @@ if(BUILD_OBJECT_LIBS)
         OUTPUT_NAME jsoncpp
         VERSION ${PROJECT_VERSION}
         SOVERSION ${PROJECT_SOVERSION}
-        POSITION_INDEPENDENT_CODE ${BUILD_SHARED_LIBS}
+        POSITION_INDEPENDENT_CODE ${JSONCPP_BUILD_SHARED_LIBS}
     )
 
     # Set library's runtime search path on OSX
