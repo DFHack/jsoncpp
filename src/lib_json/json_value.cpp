@@ -433,10 +433,19 @@ Value::Value(const Value& other) {
   dupMeta(other);
 }
 
+#if defined(__GNUC__) && __GNUC__ > 13
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wuninitialized"
+#endif
+
 Value::Value(Value&& other) noexcept {
   initBasic(nullValue);
   swap(other);
 }
+ 
+#if defined(__GNUC__) && __GNUC__ > 13
+#pragma GCC diagnostic pop
+#endif
 
 Value::~Value() {
   releasePayload();
