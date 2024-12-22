@@ -134,7 +134,6 @@ if(JSONCPP_BUILD_SHARED_LIBS)
     target_include_directories(${SHARED_LIB} PUBLIC
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/${JSONCPP_INCLUDE_DIR}>
-        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include/json>
     )
 
     list(APPEND CMAKE_TARGETS ${SHARED_LIB})
@@ -144,9 +143,9 @@ if(JSONCPP_BUILD_STATIC_LIBS)
     set(STATIC_LIB ${PROJECT_NAME}_static)
     add_library(${STATIC_LIB} STATIC ${PUBLIC_HEADERS} ${JSONCPP_SOURCES})
 
-    # avoid name clashes on windows as the shared import lib is alse named jsoncpp.lib
+    # avoid name clashes on windows as the shared import lib is also named jsoncpp.lib
     if(NOT DEFINED STATIC_SUFFIX AND JSONCPP_BUILD_SHARED_LIBS)
-        if (MSVC)
+        if (MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC"))
             set(STATIC_SUFFIX "_static")
         else()
             set(STATIC_SUFFIX "")
@@ -168,7 +167,6 @@ if(JSONCPP_BUILD_STATIC_LIBS)
     target_include_directories(${STATIC_LIB} PUBLIC
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/${JSONCPP_INCLUDE_DIR}>
-        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include/json>
     )
 
     list(APPEND CMAKE_TARGETS ${STATIC_LIB})
@@ -195,7 +193,6 @@ if(JSONCPP_BUILD_OBJECT_LIBS)
     target_include_directories(${OBJECT_LIB} PUBLIC
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/${JSONCPP_INCLUDE_DIR}>
-        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include/json>
     )
 
     list(APPEND CMAKE_TARGETS ${OBJECT_LIB})
